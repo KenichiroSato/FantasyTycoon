@@ -14,7 +14,7 @@ sword_magic_device := class(creative_device):
     @editable Sword: creative_prop = creative_prop{}
     @editable Explosive: explosive_device = explosive_device{}
 
-    DistanceFromPlayer: float = 1000.0 #cm
+    DistanceFromPlayer: float = 1500.0 #cm
     AttackDuration: float = 0.5
 
     # Runs when the device is started in a running game
@@ -42,6 +42,7 @@ sword_magic_device := class(creative_device):
             NewLocation := vector3{X := NewX, Y := NewY, Z := NewZ}
             Sword.MoveTo(NewLocation, Sword.GetTransform().Rotation, AttackDuration)
             Explosive.Explode(Agent)
+            HideSword()
 
     SetSword<private>(FortChar: fort_character)<suspends>:void =
         CharPosition := FortChar.GetTransform().Translation
@@ -49,5 +50,13 @@ sword_magic_device := class(creative_device):
         NewLocation := vector3{X := CharPosition.X, Y := CharPosition.Y, Z := CharPosition.Z + 1000.0}
         if (Sword.TeleportTo[NewLocation, CharRotation]):
             Print("Reload")
+
+    HideSword<private>()<suspends>:void =
+        CurrentPosition := Sword.GetTransform().Translation
+        CurrentRotation := Sword.GetTransform().Rotation
+        NewLocation := vector3{X := CurrentPosition.X, Y := CurrentPosition.Y, Z := CurrentPosition.Z - 5000.0}
+        if (Sword.TeleportTo[NewLocation, CurrentRotation]):
+            Print("Hide")
+
 
 
