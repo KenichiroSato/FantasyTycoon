@@ -48,6 +48,9 @@ game_manager_device := class(creative_device):
     var CurrentGold:int = 0
     var CurrentGranter: item_granter_device = item_granter_device{}
 
+    @editable GoldCountProvider: conditional_button_device = conditional_button_device{}
+    var IsInitialized: logic = false
+
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
         Print("GameManager OnBegin")
@@ -132,6 +135,14 @@ game_manager_device := class(creative_device):
     
     OnPlayerSpawned(Agent: agent):void=
         set CurrentAgent = option{Agent}
+        if (IsInitialized = false):
+            InitializeGold(Agent)
+
+    InitializeGold<private>(Agent: agent):void =
+        set CurrentGold = GoldCountProvider.GetItemCount(Agent, 0)
+        Print("InitializeGold {CurrentGold}")
+        ShowGold()
+        set IsInitialized = true
 
     OnCreatureEliminated(Res:device_ai_interaction_result):void =
         if(Agent := CurrentAgent?):
