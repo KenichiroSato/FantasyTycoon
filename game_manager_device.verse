@@ -138,7 +138,6 @@ game_manager_device := class(creative_device):
             set CurrentGold = CurrentGold + GoldPerKill
             CurrentGranter.GrantItem(Agent)
             ShowGold()
-            Print("CurrentGold ={CurrentGold}")
 
     ShowGold<private>():void =
         HudManager.ShowGold(CurrentGold)
