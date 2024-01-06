@@ -1,0 +1,53 @@
+
+using { /Fortnite.com/Devices }
+using { /Fortnite.com/Characters }
+using { /Verse.org/Simulation }
+using { /UnrealEngine.com/Temporary/Diagnostics }
+
+# See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
+
+# A Verse-authored creative device that can be placed in a level
+increase_ability_device := class(creative_device):
+
+    @editable Button: conditional_button_device = conditional_button_device{}
+    @editable ItemCountProvider: conditional_button_device = conditional_button_device{}
+    @editable ItemGranter: item_granter_device = item_granter_device{}
+    @editable PlayerSpawner:player_spawner_device = player_spawner_device{}
+    var BaseItemRequiredCount: int = 100
+
+    # Runs when the device is started in a running game
+    OnBegin<override>()<suspends>:void =
+        PlayerSpawner.SpawnedEvent.Subscribe(Initialize)
+        Button.ActivatedEvent.Subscribe(OnActivated)
+        set BaseItemRequiredCount = Button.GetItemCountRequired(0)
+
+    OnActivated(Agent: agent):void =
+        if (FortChar := Agent.GetFortCharacter[]):
+            IncreasedCount := ItemCountProvider.GetItemCount(Agent, 0)
+            Update(FortChar, IncreasedCount + 1)
+            ItemGranter.GrantItem(Agent)
+
+    Initialize<private>(Agent: agent):void =
+        if (FortChar := Agent.GetFortCharacter[]):
+            ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
+            Update(FortChar, ItemCount)
+
+    Update<private>(FortChar: fort_character,  IncreasedCount: int):void =
+        UpdateAbility(FortChar, IncreasedCount)
+        spawn{UpdateRequiredCountAfterSleep(IncreasedCount)}
+
+    UpdateRequiredCountAfterSleep<private>(IncreasedCount: int)<suspends>:void =
+        Sleep(3.0)
+        UpdateRequiredCount(IncreasedCount)
+    
+    UpdateRequiredCount<private>(IncreasedCount: int):void =
+        var NewCount:int = GetNewRequiredCount(IncreasedCount)
+        Print("NewCount = {NewCount}")
+        Button.SetItemCountRequired(0, NewCount)
+
+    GetNewRequiredCount(IncreasedCount: int):int =
+        #should be overriden in subclass
+        return BaseItemRequiredCount
+
+    UpdateAbility(FortChar: fort_character,  IncreasedCount: int):void = {}
+        #should be overriden in subclass
