@@ -105,9 +105,12 @@ game_manager_device := class(creative_device):
         UpdateGoldPerKill(1000)
         set CurrentGranter = GoldGranter1000
 
-    UpdateGoldPerKill<private>(NewValue: int):void =
+    UpdateGoldPerKill(NewValue: int):void =
         set GoldPerKill = NewValue
         HudManager.ShowGoldPerKill(GoldPerKill)
+
+    SetGoldGranter(Granter: item_granter_device):void =
+        set CurrentGranter = Granter
 
     SubscribeVindingMachines():void =
         VendingMachines1.ItemSpawnedEvent.Subscribe(OnPurchased1)
