@@ -23,7 +23,8 @@ unlock_device := class(creative_device):
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
-        Billboard.HideText()
+        if (DependsDevices.Length > 0):
+            Billboard.HideText()
         Button.ActivatedEvent.Subscribe(OnActivated)
         SubscribeDependButtonActivation()
 
