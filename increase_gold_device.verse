@@ -59,7 +59,6 @@ increase_gold_device := class(increase_ability_device):
         if (GoldPerKill := GoldPerKills[IncreasedCount + 1]):
             BillboardMessage := "{GoldPerKill.GoldPerKillCount} Golds / Kill"
             Billboard.SetText(StringToMessage(BillboardMessage))
-            Billboard.ShowText()
 
     StringToMessage<localizes>(value:string) : message = "{value}"
 

@@ -10,6 +10,7 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 increase_ability_device := class(creative_device):
 
     @editable Button: conditional_button_device = conditional_button_device{}
+    @editable UnlockDevice: unlock_device = unlock_device{}
     @editable ItemCountProvider: conditional_button_device = conditional_button_device{}
     @editable ItemGranter: item_granter_device = item_granter_device{}
     @editable PlayerSpawner:player_spawner_device = player_spawner_device{}
@@ -30,6 +31,8 @@ increase_ability_device := class(creative_device):
     Initialize<private>(Agent: agent):void =
         if (FortChar := Agent.GetFortCharacter[]):
             ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
+            if (ItemCount > 0):
+                UnlockDevice.Enable()
             Update(FortChar, ItemCount)
 
     Update<private>(FortChar: fort_character,  IncreasedCount: int):void =
@@ -37,8 +40,10 @@ increase_ability_device := class(creative_device):
         spawn{UpdateRequiredCountAfterSleep(IncreasedCount)}
 
     UpdateRequiredCountAfterSleep<private>(IncreasedCount: int)<suspends>:void =
+        UnlockDevice.Disable()
         Sleep(3.0)
         UpdateRequiredCount(IncreasedCount)
+        UnlockDevice.Enable()
     
     UpdateRequiredCount<private>(IncreasedCount: int):void =
         var NewCount:int = GetNewRequiredCount(IncreasedCount)
