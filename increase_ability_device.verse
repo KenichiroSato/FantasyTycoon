@@ -32,8 +32,7 @@ increase_ability_device := class(creative_device):
         if (FortChar := Agent.GetFortCharacter[]):
             ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
             if (ItemCount > 0):
-                UnlockDevice.Enable()
-            Update(FortChar, ItemCount)
+                Update(FortChar, ItemCount)
 
     Update<private>(FortChar: fort_character,  IncreasedCount: int):void =
         UpdateAbility(FortChar, IncreasedCount)
