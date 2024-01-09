@@ -10,17 +10,6 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 game_manager_device := class(creative_device):
 
     @editable CreatureSpawners: []creature_spawner_device = array{}
-
-    @editable GoldGranter: item_granter_device = item_granter_device{}
-    @editable GoldGranter2: item_granter_device = item_granter_device{}
-    @editable GoldGranter5: item_granter_device = item_granter_device{}
-    @editable GoldGranter10: item_granter_device = item_granter_device{}
-    @editable GoldGranter20: item_granter_device = item_granter_device{}
-    @editable GoldGranter50: item_granter_device = item_granter_device{}
-    @editable GoldGranter100: item_granter_device = item_granter_device{}
-    @editable GoldGranter200: item_granter_device = item_granter_device{}
-    @editable GoldGranter500: item_granter_device = item_granter_device{}
-    @editable GoldGranter1000: item_granter_device = item_granter_device{}
     
     @editable SpawnDevice:player_spawner_device = player_spawner_device{}
     @editable HudManager:hud_manager_device = hud_manager_device{}
@@ -28,16 +17,6 @@ game_manager_device := class(creative_device):
     @editable VendingMachines10: []vending_machine_device = array{}
     @editable VendingMachines100: []vending_machine_device = array{}
     @editable InitialItemSpawner: item_spawner_device = item_spawner_device{}
-
-    @editable ButtonPerKill_2: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_5: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_10: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_20: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_50: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_100: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_200: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_500: conditional_button_device = conditional_button_device{}
-    @editable ButtonPerKill_1000: conditional_button_device = conditional_button_device{}
 
     @editable BgmManager: bgm_manager = bgm_manager{}
     @editable AccoladeBoss: accolades_device = accolades_device{}
@@ -59,52 +38,12 @@ game_manager_device := class(creative_device):
                 CreatureSpawner.EliminatedEvent.Subscribe(OnCreatureEliminated)
         SpawnDevice.SpawnedEvent.Subscribe(OnPlayerSpawned)
         SubscribeVindingMachines()
-        ButtonPerKill_2.ActivatedEvent.Subscribe(OnActivatedPerKill_2)
-        ButtonPerKill_5.ActivatedEvent.Subscribe(OnActivatedPerKill_5)
-        ButtonPerKill_10.ActivatedEvent.Subscribe(OnActivatedPerKill_10)
-        ButtonPerKill_20.ActivatedEvent.Subscribe(OnActivatedPerKill_20)
-        ButtonPerKill_50.ActivatedEvent.Subscribe(OnActivatedPerKill_50)
-        ButtonPerKill_100.ActivatedEvent.Subscribe(OnActivatedPerKill_100)
-        ButtonPerKill_200.ActivatedEvent.Subscribe(OnActivatedPerKill_200)
-        ButtonPerKill_500.ActivatedEvent.Subscribe(OnActivatedPerKill_500)
-        ButtonPerKill_1000.ActivatedEvent.Subscribe(OnActivatedPerKill_1000)
         InitialItemSpawner.ItemPickedUpEvent.Subscribe(OnInitialGoldPickedUp)
-        set CurrentGranter = GoldGranter
-        HudManager.ShowGold(CurrentGold)
-        HudManager.ShowGoldPerKill(GoldPerKill)
         
     OnInitialGoldPickedUp(Agent: agent):void =
         set CurrentGold = CurrentGold + 1
         ShowGold()
         
-    OnActivatedPerKill_2(Agent: agent):void =
-        UpdateGoldPerKill(2)
-        set CurrentGranter = GoldGranter2
-    OnActivatedPerKill_5(Agent: agent):void =
-        UpdateGoldPerKill(5)
-        set CurrentGranter = GoldGranter5
-    OnActivatedPerKill_10(Agent: agent):void =
-        UpdateGoldPerKill(10)
-        set CurrentGranter = GoldGranter10
-    OnActivatedPerKill_20(Agent: agent):void =
-        UpdateGoldPerKill(20)
-        set CurrentGranter = GoldGranter20
-    OnActivatedPerKill_50(Agent: agent):void =
-        UpdateGoldPerKill(50)
-        set CurrentGranter = GoldGranter50
-    OnActivatedPerKill_100(Agent: agent):void =
-        UpdateGoldPerKill(100)
-        set CurrentGranter = GoldGranter100
-    OnActivatedPerKill_200(Agent: agent):void =
-        UpdateGoldPerKill(200)
-        set CurrentGranter = GoldGranter200
-    OnActivatedPerKill_500(Agent: agent):void =
-        UpdateGoldPerKill(500)
-        set CurrentGranter = GoldGranter500
-    OnActivatedPerKill_1000(Agent: agent):void =
-        UpdateGoldPerKill(1000)
-        set CurrentGranter = GoldGranter1000
-
     UpdateGoldPerKill(NewValue: int):void =
         set GoldPerKill = NewValue
         HudManager.ShowGoldPerKill(GoldPerKill)
