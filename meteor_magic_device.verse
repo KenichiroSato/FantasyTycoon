@@ -16,9 +16,12 @@ meteor_magic_device := class(creative_device):
     var Meteor: creative_prop = creative_prop{}
     var Explosive: explosive_device = explosive_device{}
 
-    DistanceFromPlayer: float = 4000.0 #cm
-    BehindFromPlayer: float = 1000.0
-    AttackDuration: float = 0.8
+    var DistanceFromPlayer: float = 4000.0 #cm
+    var DistanceFromGround: float = 200.0
+    var BehindFromPlayer: float = 1000.0
+    var AboveFromPlayer: float = 500.0
+    var AngleBehindPlayer: float = 20.0
+    var AttackDuration: float = 0.8
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
@@ -27,6 +30,12 @@ meteor_magic_device := class(creative_device):
     SetCurrentAttackEffect(Effect: attack_effect):void =
         set Meteor = Effect.Prop
         set Explosive = Effect.Explosive
+        set DistanceFromPlayer = Effect.DistanceFromPlayer
+        set DistanceFromGround = Effect.DistanceFromGround
+        set BehindFromPlayer = Effect.BehindFromPlayer
+        set AboveFromPlayer = Effect.AboveFromPlayer
+        set AngleBehindPlayer = Effect.AngleBehindPlayer
+        set AttackDuration = Effect.AttackDuration
 
     OnSignal(Agent: agent):void =
         Explosive.Reset()
@@ -45,7 +54,7 @@ meteor_magic_device := class(creative_device):
             Print("CharRotation={CharRotation} Angle={CharAngle}  CosVal={CosVal} Sin={SinVal}")
             NewX :float = CharPosition.X + DistanceFromPlayer*CosVal
             NewY :float = CharPosition.Y + DistanceFromPlayer*SinVal*CharRotation.GetAxis().Z
-            NewZ :float = CharPosition.Z - 200.0
+            NewZ :float = CharPosition.Z - DistanceFromGround
             NewLocation := vector3{X := NewX, Y := NewY, Z := NewZ}
             Meteor.MoveTo(NewLocation, Meteor.GetTransform().Rotation, AttackDuration)
             Explosive.Explode(Agent)
@@ -54,14 +63,14 @@ meteor_magic_device := class(creative_device):
     SetMeteor<private>(FortChar: fort_character)<suspends>:void =
         CharPosition := FortChar.GetTransform().Translation
         CharRotation := FortChar.GetTransform().Rotation
-        CharAngle := CharRotation.GetAngle()*CharRotation.GetAxis().Z - 3.14 * 20.0/180.0
+        CharAngle := CharRotation.GetAngle()*CharRotation.GetAxis().Z - 3.14 * AngleBehindPlayer/180.0
         CosVal:= Cos(CharAngle)
         SinVal:= Sin(CharAngle)
 
         Print("CharRotation={CharRotation} Angle={CharAngle}  CosVal={CosVal} Sin={SinVal}")
         NewX :float = CharPosition.X - BehindFromPlayer*CosVal
         NewY :float = CharPosition.Y - BehindFromPlayer*SinVal
-        NewZ :float = CharPosition.Z + 500.0
+        NewZ :float = CharPosition.Z + AboveFromPlayer
         NewLocation := vector3{X := NewX, Y := NewY, Z := NewZ}
         if (Meteor.TeleportTo[NewLocation, CharRotation]):
             Print("Reload")

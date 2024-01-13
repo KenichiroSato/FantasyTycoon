@@ -9,6 +9,13 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 attack_effect := struct:
     Prop : creative_prop
     Explosive : explosive_device
+    DistanceFromPlayer : float
+    DistanceFromGround: float
+    BehindFromPlayer : float
+    AboveFromPlayer: float
+    AngleBehindPlayer: float
+    AttackDuration : float
+
 
 # A Verse-authored creative device that can be placed in a level
 increase_attack_magic_device := class(increase_ability_device):
@@ -23,9 +30,9 @@ increase_attack_magic_device := class(increase_ability_device):
     MAX_ITEM_REQUIRED_COUNT: int = 1000000
 
     AttackEffectList(): []attack_effect = array{
-        attack_effect {Prop := PropLevel1, Explosive := ExplisiveLevel1},
-        attack_effect {Prop := PropLevel2, Explosive := ExplisiveLevel2},
-        attack_effect {Prop := PropLevel3, Explosive := ExplisiveLevel3}
+        attack_effect {Prop := PropLevel1, Explosive := ExplisiveLevel1, DistanceFromPlayer:= 3000.0, DistanceFromGround:= 200.0, BehindFromPlayer:= 1000.0, AboveFromPlayer:= 500.0, AngleBehindPlayer:= 20.0, AttackDuration:= 0.8},
+        attack_effect {Prop := PropLevel2, Explosive := ExplisiveLevel2, DistanceFromPlayer:= 4000.0, DistanceFromGround:= 1000.0, BehindFromPlayer:= 5000.0, AboveFromPlayer:= 3000.0, AngleBehindPlayer:= 45.0, AttackDuration:= 1.0},
+        attack_effect {Prop := PropLevel3, Explosive := ExplisiveLevel3, DistanceFromPlayer:= 6000.0, DistanceFromGround:= 500.0, BehindFromPlayer:= 4000.0, AboveFromPlayer:= 3000.0, AngleBehindPlayer:= 60.0, AttackDuration:= 1.3}
     }
 
     GetNewRequiredCount<override>(IncreasedCount: int):int =
