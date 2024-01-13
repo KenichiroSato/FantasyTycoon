@@ -10,7 +10,7 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 heal_magic_device := class(creative_device):
 
     @editable SignalRemote:signal_remote_manager_device = signal_remote_manager_device{}
-    @editable HealAmount: float = 30.0
+    var HealAmount: float = 100.0
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
@@ -18,6 +18,9 @@ heal_magic_device := class(creative_device):
 
     OnSignal(Agent: agent):void =
         Heal(Agent)
+
+    SetHealAmount(Amount: float):void =
+        set HealAmount = Amount
 
     Heal(Agent : agent) :void =
         if (FortniteCharacter : fort_character = Agent.GetFortCharacter[]):
