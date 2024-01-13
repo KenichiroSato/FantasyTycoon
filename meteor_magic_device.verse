@@ -10,8 +10,11 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 meteor_magic_device := class(creative_device):
 
     @editable SignalRemote:signal_remote_manager_device = signal_remote_manager_device{}
-    @editable Meteor: creative_prop = creative_prop{}
-    @editable Explosive: explosive_device = explosive_device{}
+    #@editable Meteor: creative_prop = creative_prop{}
+    #@editable Explosive: explosive_device = explosive_device{}
+
+    var Meteor: creative_prop = creative_prop{}
+    var Explosive: explosive_device = explosive_device{}
 
     DistanceFromPlayer: float = 4000.0 #cm
     BehindFromPlayer: float = 1000.0
@@ -20,6 +23,10 @@ meteor_magic_device := class(creative_device):
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
         SignalRemote.PrimarySignalEvent.Subscribe(OnSignal)
+
+    SetCurrentAttackEffect(Effect: attack_effect):void =
+        set Meteor = Effect.Prop
+        set Explosive = Effect.Explosive
 
     OnSignal(Agent: agent):void =
         Explosive.Reset()
