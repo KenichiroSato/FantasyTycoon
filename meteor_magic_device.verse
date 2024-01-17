@@ -78,6 +78,6 @@ meteor_magic_device := class(creative_device):
     HideMeteor<private>()<suspends>:void =
         CurrentPosition := Meteor.GetTransform().Translation
         CurrentRotation := Meteor.GetTransform().Rotation
-        NewLocation := vector3{X := CurrentPosition.X, Y := CurrentPosition.Y, Z := CurrentPosition.Z - 5000.0}
+        NewLocation := vector3{X := CurrentPosition.X, Y := CurrentPosition.Y, Z := CurrentPosition.Z - 15000.0}
         if (Meteor.TeleportTo[NewLocation, CurrentRotation]):
             Print("Hide")
