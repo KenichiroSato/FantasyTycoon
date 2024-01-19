@@ -42,6 +42,7 @@ game_manager_device := class(creative_device):
         InitialItemSpawner.ItemPickedUpEvent.Subscribe(OnInitialGoldPickedUp)
         SetGoldGranter(InitialGoldGarnter)
         UpdateGoldPerKill(GoldPerKill)
+        BgmManager.PlayNormalBgm()
         
     OnInitialGoldPickedUp(Agent: agent):void =
         set CurrentGold = CurrentGold + 1
