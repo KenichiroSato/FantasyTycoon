@@ -44,6 +44,7 @@ increase_attack_magic_device := class(increase_ability_device):
         return NewCount
 
     UpdateAbility<override>(FortChar: fort_character,  IncreasedCount: int):void =
+        Print("increase_attack_magic UpdateAbility count={IncreasedCount}")
         List := AttackEffectList()
         if (Effect := List[IncreasedCount]):
             MeteorMagic.SetCurrentAttackEffect(Effect)

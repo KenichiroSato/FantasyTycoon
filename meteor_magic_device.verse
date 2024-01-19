@@ -39,7 +39,7 @@ meteor_magic_device := class(creative_device):
 
     OnSignal(Agent: agent):void =
         Explosive.Reset()
-            spawn{MoveMeteor(Agent)}
+        spawn{MoveMeteor(Agent)}
 
     MoveMeteor<private>(Agent: agent)<suspends>:void =
         if (FortChar := Agent.GetFortCharacter[]):

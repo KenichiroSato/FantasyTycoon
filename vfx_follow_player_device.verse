@@ -63,7 +63,7 @@ vfx_follow_player_device := class(creative_device):
         if (FortChar := Agent.GetFortCharacter[]):
             CharLocation := FortChar.GetTransform().Translation
             CharRotation := FortChar.GetTransform().Rotation
-            NewLocation := vector3{X := CharLocation.X, Y := CharLocation.Y, Z := CharLocation.Z + 50.0}
+            NewLocation := vector3{X := CharLocation.X, Y := CharLocation.Y, Z := CharLocation.Z}
             if (Prop.TeleportTo[NewLocation, CharRotation]):
                 Print("SetProp")
 
@@ -72,5 +72,5 @@ vfx_follow_player_device := class(creative_device):
             if (FortChar := Agent.GetFortCharacter[]):
                 CharLocation := FortChar.GetTransform().Translation
                 CharRotation := FortChar.GetTransform().Rotation
-                NewLocation := vector3{X := CharLocation.X, Y := CharLocation.Y, Z := CharLocation.Z + 50.0}
+                NewLocation := vector3{X := CharLocation.X, Y := CharLocation.Y, Z := CharLocation.Z}
                 Prop.MoveTo(NewLocation, CharRotation, 0.1)
