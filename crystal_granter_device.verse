@@ -18,6 +18,7 @@ crystal_granter_device := class(creative_device):
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
         MutatorZone.AgentEntersEvent.Subscribe(OnPlayerEntered)
+        MutatorZone.AgentEntersEvent.Subscribe(OnPlayerEntered)
         GuardSpawner.EliminatedEvent.Subscribe(OnBossEliminated)
 
     OnPlayerEntered(Agent: agent):void =

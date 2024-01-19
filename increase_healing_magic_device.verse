@@ -10,9 +10,9 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 increase_healing_magic_device := class(increase_ability_device):
 
     @editable IncreaseAmount: float = 100.0
-    @editable BaseAmount: float = 100.0
     @editable HealMagicDevice: heal_magic_device = heal_magic_device{}
     MAX_ITEM_REQUIRED_COUNT: int = 1000000
+    @editable Barrier: barrier_device = barrier_device{}
 
     GetNewRequiredCount<override>(IncreasedCount: int):int =
         var NewCount:int = BaseItemRequiredCount
@@ -23,5 +23,6 @@ increase_healing_magic_device := class(increase_ability_device):
         return NewCount
 
     UpdateAbility<override>(FortChar: fort_character,  IncreasedCount: int):void =
-        New := BaseAmount + IncreaseAmount * IncreasedCount
+        Barrier.Disable()
+        New := IncreaseAmount * IncreasedCount
         HealMagicDevice.SetHealAmount(New)

@@ -27,6 +27,8 @@ increase_attack_magic_device := class(increase_ability_device):
     @editable ExplisiveLevel2 : explosive_device = explosive_device{}
     @editable ExplisiveLevel3 : explosive_device = explosive_device{}
     @editable MeteorMagic: meteor_magic_device = meteor_magic_device{}
+    @editable Barrier: barrier_device = barrier_device{}
+
     MAX_ITEM_REQUIRED_COUNT: int = 1000000
 
     AttackEffectList(): []attack_effect = array{
@@ -45,8 +47,9 @@ increase_attack_magic_device := class(increase_ability_device):
 
     UpdateAbility<override>(FortChar: fort_character,  IncreasedCount: int):void =
         Print("increase_attack_magic UpdateAbility count={IncreasedCount}")
+        Barrier.Disable()
         List := AttackEffectList()
-        if (Effect := List[IncreasedCount]):
+        if (Effect := List[IncreasedCount - 1]):
             MeteorMagic.SetCurrentAttackEffect(Effect)
 
 
