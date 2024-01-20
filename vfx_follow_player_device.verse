@@ -55,7 +55,9 @@ vfx_follow_player_device := class(creative_device):
     StartVfx<private>(Agent: agent, Vfx: vfx_spawner_device)<suspends>:void =
         SetProp(Agent)
         Vfx.Enable()
+        Print("EnableVFX")
         FollowPlayer(Agent)
+        Print("DisableVFX")
         Vfx.Disable()
 
 
@@ -63,14 +65,12 @@ vfx_follow_player_device := class(creative_device):
         if (FortChar := Agent.GetFortCharacter[]):
             CharLocation := FortChar.GetTransform().Translation
             CharRotation := FortChar.GetTransform().Rotation
-            NewLocation := vector3{X := CharLocation.X, Y := CharLocation.Y, Z := CharLocation.Z}
-            if (Prop.TeleportTo[NewLocation, CharRotation]):
+            if (Prop.TeleportTo[CharLocation, CharRotation]):
                 Print("SetProp")
 
     FollowPlayer(Agent : agent)<suspends>:void=
-        for(Index : int = 0..50 ):
-            if (FortChar := Agent.GetFortCharacter[]):
+        if (FortChar := Agent.GetFortCharacter[]):
+            CharRotation := FortChar.GetTransform().Rotation
+            for(Index : int = 0..20 ):
                 CharLocation := FortChar.GetTransform().Translation
-                CharRotation := FortChar.GetTransform().Rotation
-                NewLocation := vector3{X := CharLocation.X, Y := CharLocation.Y, Z := CharLocation.Z}
-                Prop.MoveTo(NewLocation, CharRotation, 0.1)
+                Prop.MoveTo(CharLocation, CharRotation, 0.1)
