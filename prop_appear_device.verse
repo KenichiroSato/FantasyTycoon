@@ -29,7 +29,7 @@ prop_appear_device := class(creative_device):
     OnActivated(Agent: agent):void =
         if (FortChar := Agent.GetFortCharacter[]):
             ItemGranter.GrantItem(Agent)
-            spawn{AppearProp()}
+            spawn{AppearProp(Agent)}
 
     Initialize<private>(Agent: agent):void =
         if (IsInitialized = true):
@@ -39,7 +39,7 @@ prop_appear_device := class(creative_device):
             ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
             if (ItemCount > 0):
                 UnlockDevice.Disable()
-                spawn{AppearProp()}
+                spawn{AppearProp(Agent)}
 
     HideProp<private>()<suspends>:void =
         PropLocation := Prop.GetTransform().Translation
@@ -47,17 +47,17 @@ prop_appear_device := class(creative_device):
         if (Prop.TeleportTo[NewLocation, Prop.GetTransform().Rotation]):
             Print("Hide Prop")
 
-    AppearProp<private>()<suspends>:void =
+    AppearProp<private>(Agent: agent)<suspends>:void =
         Print("Appear Prop")
         PropLocation := Prop.GetTransform().Translation
         NewLocation := vector3{X := PropLocation.X, Y := PropLocation.Y, Z := PropLocation.Z + MoveDistance}
         Prop.MoveTo(NewLocation, Prop.GetTransform().Rotation, 1.0)
-        EnableDevices()
+        EnableDevices(Agent)
     
-    EnableDevices<private>():void =
+    EnableDevices<private>(Agent: agent):void =
         for(Index : int = 0..EnableDevicesAfterAppear.Length - 1 ):
             if(EnableTarget := EnableDevicesAfterAppear[Index]):
-                EnableTarget.Enable()
+                EnableTarget.EnableIfNeed(Agent)
 
 
 

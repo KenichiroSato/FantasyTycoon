@@ -14,6 +14,7 @@ unlock_device := class(creative_device):
     @editable GameManager: game_manager_device = game_manager_device{}
     @editable AudioPlayer: audio_player_device = audio_player_device{}
     @editable KeepEnableAfterUse: logic = false
+    @editable ItemCountProvider: conditional_button_device = conditional_button_device{}
 
     # list of unlock_device that must be activated before this device is enabled.
     @editable DependsDevices: []unlock_device = array{}
@@ -65,3 +66,9 @@ unlock_device := class(creative_device):
         Billboard.HideText()
         Beacon.Disable()
         Button.Disable()
+
+    EnableIfNeed(Agent: agent):void =
+        ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
+        if (ItemCount > 0):
+            return # already activated and no need to enable
+        Enable()
