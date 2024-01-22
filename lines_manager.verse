@@ -9,9 +9,25 @@ using { /UnrealEngine.com/Temporary/UI }
 # See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
 
 
-duration := enum{Short, Long}
+duration := enum{Short, Medium, Long}
 
-scene:= enum{ Introduction1, Introduction2, Introduction3, FirstBoss, FirstCrystal, SavePoint, LastCrystal, Portal, Defeat}
+scene:= enum{ 
+    Introduction1,
+    Introduction2,
+    Introduction3,
+    FirstBoss,
+    FirstCrystal,
+    SavePoint,
+    LastCrystal,
+    Portal,
+    Defeat,
+    Jaeger,
+    Fennix,
+    Frontier,
+    Penny,
+    Rebel,
+    SeaWolf
+    }
 
 line := struct:
     Character : texture
@@ -78,22 +94,29 @@ lines_manager := class(creative_device):
     OnPortal(Agent: agent):void =
         StartScene(Agent, scene.Portal)
 
-    StartScene<private>(Agent: agent, Scene: scene):void=
+    StartScene(Agent: agent, Scene: scene):void=
         SetLinesProviderIfNeed(Agent)
         Lines := GetLinesList(LinesProvider, Scene)
         spawn{StartLines(Agent, Lines)}
 
     GetLinesList(Provider :lines_provider, Scene: scene):[]line =
         case(Scene):
-            scene.Introduction1     => return Provider.Introduction1LinesList()
-            scene.Introduction2     => return Provider.Introduction2LinesList()
-            scene.Introduction3     => return Provider.Introduction3LinesList()
+            scene.Introduction1 => return Provider.Introduction1LinesList()
+            scene.Introduction2 => return Provider.Introduction2LinesList()
+            scene.Introduction3 => return Provider.Introduction3LinesList()
             scene.FirstBoss     => return Provider.FirstBossLinesList()
-            scene.FirstCrystal     => return Provider.FirstCrystalLinesList()
+            scene.FirstCrystal  => return Provider.FirstCrystalLinesList()
             scene.SavePoint     => return Provider.SavePointLinesList()
-            scene.LastCrystal     => return Provider.LastCrystalLinesList()
+            scene.LastCrystal   => return Provider.LastCrystalLinesList()
             scene.Portal     => return Provider.PortalLinesList()
             scene.Defeat     => return Provider.DefeatLinesList()
+            scene.Jaeger     => return Provider.JaegerList()
+            scene.Fennix     => return Provider.FennixList()
+            scene.Frontier   => return Provider.FrontierList()
+            scene.Penny      => return Provider.PennyList()
+            scene.Rebel      => return Provider.RebelList()
+            scene.SeaWolf    => return Provider.SeaWolfList()
+        
         
     StartLines(Agent: agent, Lines: []line)<suspends>:void =
         if (IsStarted = true):
@@ -107,11 +130,12 @@ lines_manager := class(creative_device):
                     PlayerUI.AddWidget(NewUI, player_ui_slot{InputMode := ui_input_mode.None})
                     Sleep(GetDuration(Line.Duration))
                     PlayerUI.RemoveWidget(NewUI)
+                    Sleep(0.5)
         set IsStarted = false
 
     GetDuration<private>(Duration: duration):float =
         if (Duration = duration.Short):
-            return 4.0
+            return 5.0
         else:
             return 8.0
 

@@ -25,17 +25,17 @@ increase_ability_device := class(creative_device):
     OnActivated(Agent: agent):void =
         if (FortChar := Agent.GetFortCharacter[]):
             IncreasedCount := ItemCountProvider.GetItemCount(Agent, 0)
-            Update(FortChar, IncreasedCount + 1)
+            Update(Agent, IncreasedCount + 1)
             ItemGranter.GrantItem(Agent)
 
     Initialize<private>(Agent: agent):void =
         if (FortChar := Agent.GetFortCharacter[]):
             ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
             if (ItemCount > 0):
-                Update(FortChar, ItemCount)
+                Update(Agent, ItemCount)
 
-    Update<private>(FortChar: fort_character,  IncreasedCount: int):void =
-        UpdateAbility(FortChar, IncreasedCount)
+    Update<private>(Agent: agent,  IncreasedCount: int):void =
+        UpdateAbility(Agent, IncreasedCount)
         spawn{UpdateRequiredCountAfterSleep(IncreasedCount)}
 
     UpdateRequiredCountAfterSleep<private>(IncreasedCount: int)<suspends>:void =
@@ -53,5 +53,5 @@ increase_ability_device := class(creative_device):
         #should be overriden in subclass
         return BaseItemRequiredCount
 
-    UpdateAbility(FortChar: fort_character,  IncreasedCount: int):void = {}
+    UpdateAbility(Agent: agent,  IncreasedCount: int):void = {}
         #should be overriden in subclass

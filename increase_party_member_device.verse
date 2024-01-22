@@ -6,27 +6,30 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 
 # See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
 
+member := struct:
+    Spawner : guard_spawner_device
+    Scene : scene
+
 # A Verse-authored creative device that can be placed in a level
 increase_party_member_device := class(increase_ability_device):
 
-    @editable GuardSpawner1: guard_spawner_device = guard_spawner_device{}
-    @editable GuardSpawner2: guard_spawner_device = guard_spawner_device{}
-    @editable GuardSpawner3: guard_spawner_device = guard_spawner_device{}
-    @editable GuardSpawner4: guard_spawner_device = guard_spawner_device{}
-    @editable GuardSpawner5: guard_spawner_device = guard_spawner_device{}
-    @editable GuardSpawner6: guard_spawner_device = guard_spawner_device{}
-    @editable GuardSpawner7: guard_spawner_device = guard_spawner_device{}
+    @editable JaegerSpawner: guard_spawner_device = guard_spawner_device{}
+    @editable FennixSpawner: guard_spawner_device = guard_spawner_device{}
+    @editable FrontierSpawner: guard_spawner_device = guard_spawner_device{}
+    @editable PennySpawner: guard_spawner_device = guard_spawner_device{}
+    @editable RebelSpawner: guard_spawner_device = guard_spawner_device{}
+    @editable SeaWolfSpawner: guard_spawner_device = guard_spawner_device{}
+    @editable LinesManager: lines_manager = lines_manager{}
 
     MAX_ITEM_REQUIRED_COUNT: int = 1000000
 
-    MemberList(): []guard_spawner_device = array{
-        GuardSpawner1,
-        GuardSpawner2,
-        GuardSpawner3,
-        GuardSpawner4,
-        GuardSpawner5,
-        GuardSpawner6,
-        GuardSpawner7
+    MemberList(): []member = array{
+        member{Spawner := JaegerSpawner, Scene := scene.Jaeger},
+        member{Spawner := PennySpawner, Scene := scene.Penny},
+        member{Spawner := FrontierSpawner, Scene := scene.Frontier},
+        member{Spawner := FennixSpawner, Scene := scene.Fennix},
+        member{Spawner := RebelSpawner, Scene := scene.Rebel},
+        member{Spawner := SeaWolfSpawner, Scene := scene.SeaWolf}
     }
 
     GetNewRequiredCount<override>(IncreasedCount: int):int =
@@ -37,10 +40,12 @@ increase_party_member_device := class(increase_ability_device):
             set NewCount = MAX_ITEM_REQUIRED_COUNT
         return NewCount
 
-    UpdateAbility<override>(FortChar: fort_character,  IncreasedCount: int):void =
+    UpdateAbility<override>(Agent: agent,  IncreasedCount: int):void =
         if (IncreasedCount = 0):
             return
         Members := MemberList()
         for(Index : int = 0..IncreasedCount - 1 ):
-            if(GuardSpawner := Members[Index]):
-                GuardSpawner.Enable()
+            if(Member := Members[Index]):
+                Spawner := Member.Spawner
+                Spawner.Enable()
+                LinesManager.StartScene(Agent, Member.Scene)

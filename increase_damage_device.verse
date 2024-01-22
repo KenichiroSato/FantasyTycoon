@@ -21,7 +21,7 @@ increase_damage_device := class(increase_ability_device):
             set NewCount = MAX_ITEM_REQUIRED_COUNT
         return NewCount
 
-    UpdateAbility<override>(FortChar: fort_character,  IncreasedCount: int):void =
+    UpdateAbility<override>(Agent: agent,  IncreasedCount: int):void =
         AmpValue := BaseAmount * IncreasedCount * 5.0
         DamageAmplifier.SetMagnitude(AmpValue)
         Print("New AmpValue = {AmpValue}")
