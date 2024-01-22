@@ -48,4 +48,17 @@ increase_party_member_device := class(increase_ability_device):
             if(Member := Members[Index]):
                 Spawner := Member.Spawner
                 Spawner.Enable()
+
+        ShouldShow := ShouldShowIntroduction(Agent, IncreasedCount)
+        if (ShouldShow = true):
+            if (Member := Members[IncreasedCount - 1]):
                 LinesManager.StartScene(Agent, Member.Scene)
+
+    ShouldShowIntroduction(Agent: agent, IncreasedCount: int): logic =
+        ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
+        if (ItemCount = IncreasedCount): #ゲーム開始直後やプレイヤーがRespawnしたケース
+            return false
+        else: #ボタンを押して新しい仲間を追加したケース
+            return true
+
+

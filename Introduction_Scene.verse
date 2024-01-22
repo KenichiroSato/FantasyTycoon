@@ -27,6 +27,7 @@ Introduction_Scene := class(creative_device):
     OnIntroductionInNeed(Agent: agent):void =
         ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
         if (ItemCount > 0):
+            SecondCreatureSpawner.Enable()
             return #Already Introduced
         ItemGranter.GrantItem(Agent)
         set CurrentAgent = option{Agent}
