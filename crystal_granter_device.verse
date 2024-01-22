@@ -14,11 +14,11 @@ crystal_granter_device := class(creative_device):
     @editable BossNumber: int = 1
     @editable GuardNumber: int = 0
     @editable ItemSpawner: item_spawner_device = item_spawner_device{}
-    @editable Beacon: beacon_device = beacon_device{}
+    @editable Indicator: map_indicator_device = map_indicator_device{}
 
 
-    var IsPlayerInTheArea:logic = false
     var EliminatedCount:int = 0
+    var CurrentAgent: ?agent = false
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
         MutatorZone.AgentEntersEvent.Subscribe(OnPlayerEntered)
@@ -27,7 +27,7 @@ crystal_granter_device := class(creative_device):
         GuardSpawner.EliminatedEvent.Subscribe(OnBossEliminated)
 
     OnPlayerEntered(Agent: agent):void =
-        set IsPlayerInTheArea = true
+        set CurrentAgent = option{Agent}
         set EliminatedCount = 0
         for(Index : int = 0..BossNumber - 1 ):
             Print("Boss Spawn")
@@ -37,7 +37,7 @@ crystal_granter_device := class(creative_device):
             GuardSpawner.Spawn()
 
     OnPlayerExit(Agent: agent):void =
-        set IsPlayerInTheArea = false
+        set CurrentAgent = false
         Print("OnPlayerExit")
         spawn{DespawnAfterSleep()}
 
@@ -49,12 +49,13 @@ crystal_granter_device := class(creative_device):
         set EliminatedCount = 0
 
     OnBossEliminated(Res:device_ai_interaction_result):void =
-        if(IsPlayerInTheArea = true): 
+        if(Agent := CurrentAgent?): 
             Print("OnBossEliminated")
             set EliminatedCount += 1
             if (EliminatedCount = BossNumber + GuardNumber):
                 ItemSpawner.SpawnItem()
-                Beacon.Enable()
+                Indicator.Enable()
+                Indicator.ActivateObjectivePulse(Agent)
 
 
 

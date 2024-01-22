@@ -32,7 +32,7 @@ increase_party_member_device := class(increase_ability_device):
     GetNewRequiredCount<override>(IncreasedCount: int):int =
         var NewCount:int = BaseItemRequiredCount
         for(Index : int = 0..IncreasedCount - 1 ):
-            set NewCount = NewCount * 2
+            set NewCount = NewCount * 5
         if (NewCount > MAX_ITEM_REQUIRED_COUNT):
             set NewCount = MAX_ITEM_REQUIRED_COUNT
         return NewCount
