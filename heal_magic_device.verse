@@ -10,6 +10,7 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 heal_magic_device := class(creative_device):
 
     @editable SignalRemote:signal_remote_manager_device = signal_remote_manager_device{}
+    @editable Vfx: vfx_follow_player_device = vfx_follow_player_device{}
     var HealAmount: float = 100.0
 
     # Runs when the device is started in a running game
@@ -27,3 +28,4 @@ heal_magic_device := class(creative_device):
             Print("Heal")
             MyCharacterHealth : float = FortniteCharacter.GetHealth()
             FortniteCharacter.Heal(HealAmount)
+            Vfx.OnMagicHeal(Agent)
