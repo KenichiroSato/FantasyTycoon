@@ -33,12 +33,18 @@ increase_party_member_device := class(increase_ability_device):
     }
 
     GetNewRequiredCount<override>(IncreasedCount: int):int =
-        var NewCount:int = BaseItemRequiredCount
-        for(Index : int = 0..IncreasedCount - 1 ):
-            set NewCount = NewCount * 5
-        if (NewCount > MAX_ITEM_REQUIRED_COUNT):
-            set NewCount = MAX_ITEM_REQUIRED_COUNT
-        return NewCount
+        if (IncreasedCount=1):
+            return 50
+        if (IncreasedCount=2):
+            return 200
+        if (IncreasedCount=3):
+            return 1000
+        if (IncreasedCount=4):
+            return 5000
+        if (IncreasedCount=5):
+            return 20000
+        else:
+            return 100000
 
     UpdateAbility<override>(Agent: agent,  IncreasedCount: int):void =
         if (IncreasedCount = 0):

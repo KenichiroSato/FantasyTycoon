@@ -39,6 +39,7 @@ prop_appear_device := class(creative_device):
             ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
             if (ItemCount > 0):
                 UnlockDevice.Disable()
+                UnlockDevice.HideButton()
                 spawn{AppearProp(Agent)}
 
     HideProp<private>()<suspends>:void =

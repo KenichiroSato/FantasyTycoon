@@ -15,6 +15,7 @@ crystal_granter_device := class(creative_device):
     @editable GuardNumber: int = 0
     @editable ItemSpawner: item_spawner_device = item_spawner_device{}
     @editable Indicator: map_indicator_device = map_indicator_device{}
+    @editable BgmManager: bgm_manager = bgm_manager{}
 
 
     var EliminatedCount:int = 0
@@ -35,11 +36,13 @@ crystal_granter_device := class(creative_device):
         for(Index : int = 0..GuardNumber - 1 ):
             Print("Guard Spawn")
             GuardSpawner.Spawn()
+        BgmManager.PlayBattleBgm()
 
     OnPlayerExit(Agent: agent):void =
         set CurrentAgent = false
         Print("OnPlayerExit")
         spawn{DespawnAfterSleep()}
+        BgmManager.PlayNormalBgm()
 
     DespawnAfterSleep<private>()<suspends>:void =
         Sleep(5.0)
@@ -56,6 +59,8 @@ crystal_granter_device := class(creative_device):
                 ItemSpawner.SpawnItem()
                 Indicator.Enable()
                 Indicator.ActivateObjectivePulse(Agent)
+                spawn{BgmManager.PlayMonsterDefeated()}
+
 
 
 

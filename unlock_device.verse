@@ -2,6 +2,7 @@
 using { /Fortnite.com/Devices }
 using { /Verse.org/Simulation }
 using { /UnrealEngine.com/Temporary/Diagnostics }
+using { /UnrealEngine.com/Temporary/SpatialMath }
 
 # See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
 
@@ -48,6 +49,7 @@ unlock_device := class(creative_device):
         Print("OnActivated Cost={Cost}")
         if (KeepEnableAfterUse = false):
             Disable()
+            HideButton()
         GameManager.OnPurchased(Cost)
         for(Index : int = 0..DisableTargets.Length - 1 ):
             if(DisableTarget := DisableTargets[Index]):
@@ -66,6 +68,15 @@ unlock_device := class(creative_device):
         Billboard.HideText()
         Beacon.Disable()
         Button.Disable()
+
+    HideButton():void =
+        Button.Disable()
+        CurrentPosition := Button.GetTransform().Translation
+        CurrentRotation := Button.GetTransform().Rotation
+        NewLocation := vector3{X := CurrentPosition.X, Y := CurrentPosition.Y, Z := CurrentPosition.Z - 500.0}
+        if (Button.TeleportTo[NewLocation, CurrentRotation]):
+            Print("Button Hide")
+
 
     EnableIfNeed(Agent: agent):void =
         ItemCount := ItemCountProvider.GetItemCount(Agent, 0)

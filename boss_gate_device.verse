@@ -29,3 +29,4 @@ boss_gate_device := class(creative_device):
         if (ItemCount > 0):
             Barrier.Disable()
             UnlockDevice.Disable()
+            UnlockDevice.HideButton()
