@@ -14,6 +14,7 @@ weapon_enable_device := class(creative_device):
     @editable ItemCountProvider: conditional_button_device = conditional_button_device{}
     @editable ItemGranter: item_granter_device = item_granter_device{}
     @editable PlayerSpawner:player_spawner_device = player_spawner_device{}
+    @editable GameManager: game_manager_device = game_manager_device{}
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void =
@@ -23,6 +24,8 @@ weapon_enable_device := class(creative_device):
     OnActivated(Agent: agent):void =
         ItemGranter.GrantItem(Agent)
         Barrier.Disable()
+        Cost := Button.GetItemCountRequired(0)
+        GameManager.OnPurchased(Cost)
 
     Initialize<private>(Agent: agent):void =
         ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
