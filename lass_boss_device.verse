@@ -17,6 +17,7 @@ lass_boss_device := class(creative_device):
     @editable Gate: creative_prop = creative_prop{}
     @editable Indicator: map_indicator_device = map_indicator_device{}
     @editable BgmManager: bgm_manager = bgm_manager{}
+    @editable Accolade: accolades_device = accolades_device{}
 
     var GateInitialPosition<private>: vector3 = vector3{X:=0.0, Y:= 0.0, Z:=0.0}
 
@@ -65,6 +66,7 @@ lass_boss_device := class(creative_device):
                 Indicator.Enable()
                 Indicator.ActivateObjectivePulse(Agent)
                 spawn{BgmManager.PlayMonsterDefeated()}
+                Accolade.Award(Agent)
 
     ShowGate<private>()<suspends>:void =
         NewLocation := vector3{X := GateInitialPosition.X, Y := GateInitialPosition.Y, Z := GateInitialPosition.Z + 1000.0}

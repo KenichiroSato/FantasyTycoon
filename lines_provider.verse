@@ -70,22 +70,22 @@ english_lines_provider := class(lines_provider):
     }
 
     JaegerList<override>() : []line = array{
-        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Short}
+        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Long}
     }
     FennixList<override>() : []line = array{
-        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Short}
+        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Long}
     }
     FrontierList<override>() : []line = array{
-        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Short}
+        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Long}
     }
     PennyList<override>() : []line = array{
-        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Short}
+        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Long}
     }
     RebelList<override>() : []line = array{
-        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Short}
+        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Long}
     }
     SeaWolfList<override>() : []line = array{
-        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Short}
+        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Long}
     }
 
 japanese_lines_provider := class(lines_provider):
@@ -135,22 +135,22 @@ japanese_lines_provider := class(lines_provider):
     }
 
     JaegerList<override>() : []line = array{
-        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Short}
+        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Long}
     }
     FennixList<override>() : []line = array{
-        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Short}
+        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Long}
     }
     FrontierList<override>() : []line = array{
-        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Short}
+        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Long}
     }
     PennyList<override>() : []line = array{
-        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Short}
+        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Long}
     }
     RebelList<override>() : []line = array{
-        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Short}
+        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Long}
     }
     SeaWolfList<override>() : []line = array{
-        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Short}
+        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Long}
     }
 
 spanish_lines_provider := class(lines_provider):
@@ -199,22 +199,22 @@ spanish_lines_provider := class(lines_provider):
     }
 
     JaegerList<override>() : []line = array{
-        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Short}
+        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Long}
     }
     FennixList<override>() : []line = array{
-        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Short}
+        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Long}
     }
     FrontierList<override>() : []line = array{
-        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Short}
+        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Long}
     }
     PennyList<override>() : []line = array{
-        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Short}
+        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Long}
     }
     RebelList<override>() : []line = array{
-        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Short}
+        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Long}
     }
     SeaWolfList<override>() : []line = array{
-        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Short}
+        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Long}
     }
 
 french_lines_provider := class(lines_provider):
@@ -263,20 +263,20 @@ french_lines_provider := class(lines_provider):
     }
 
     JaegerList<override>() : []line = array{
-        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Short}
+        line {Character := assets.Jaeger, Sentence := assets.s_Jaeger, Duration := duration.Long}
     }
     FennixList<override>() : []line = array{
-        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Short}
+        line {Character := assets.Fennix, Sentence := assets.s_fennix, Duration := duration.Long}
     }
     FrontierList<override>() : []line = array{
-        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Short}
+        line {Character := assets.Frontier, Sentence := assets.s_frontier, Duration := duration.Long}
     }
     PennyList<override>() : []line = array{
-        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Short}
+        line {Character := assets.Penny, Sentence := assets.s_penny, Duration := duration.Long}
     }
     RebelList<override>() : []line = array{
-        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Short}
+        line {Character := assets.Rebel, Sentence := assets.s_rebel, Duration := duration.Long}
     }
     SeaWolfList<override>() : []line = array{
-        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Short}
+        line {Character := assets.SeaWolf, Sentence := assets.s_seawolf, Duration := duration.Long}
     }

@@ -16,7 +16,7 @@ crystal_granter_device := class(creative_device):
     @editable ItemSpawner: item_spawner_device = item_spawner_device{}
     @editable Indicator: map_indicator_device = map_indicator_device{}
     @editable BgmManager: bgm_manager = bgm_manager{}
-
+    @editable Accolade: accolades_device = accolades_device{}
 
     var EliminatedCount:int = 0
     var CurrentAgent: ?agent = false
@@ -60,6 +60,7 @@ crystal_granter_device := class(creative_device):
                 Indicator.Enable()
                 Indicator.ActivateObjectivePulse(Agent)
                 spawn{BgmManager.PlayMonsterDefeated()}
+                Accolade.Award(Agent)
 
 
 
