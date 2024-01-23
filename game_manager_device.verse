@@ -17,7 +17,7 @@ game_manager_device := class(creative_device):
     @editable VendingMachines10: []vending_machine_device = array{}
     @editable VendingMachines100: []vending_machine_device = array{}
     @editable InitialItemSpawner: item_spawner_device = item_spawner_device{}
-    @editable InitialGoldGarnter: item_granter_device = item_granter_device{}
+    @editable var CurrentGranter: item_granter_device = item_granter_device{}
 
     @editable BgmManager: bgm_manager = bgm_manager{}
     @editable AccoladeBoss: accolades_device = accolades_device{}
@@ -26,7 +26,6 @@ game_manager_device := class(creative_device):
     var CurrentAgent: ?agent = false
     var GoldPerKill:int = 1
     var CurrentGold:int = 0
-    var CurrentGranter: item_granter_device = item_granter_device{}
 
     @editable GoldCountProvider: conditional_button_device = conditional_button_device{}
     var IsInitialized: logic = false
@@ -40,7 +39,6 @@ game_manager_device := class(creative_device):
         SpawnDevice.SpawnedEvent.Subscribe(OnPlayerSpawned)
         SubscribeVindingMachines()
         InitialItemSpawner.ItemPickedUpEvent.Subscribe(OnInitialGoldPickedUp)
-        SetGoldGranter(InitialGoldGarnter)
         UpdateGoldPerKill(GoldPerKill)
         BgmManager.PlayNormalBgm()
         
