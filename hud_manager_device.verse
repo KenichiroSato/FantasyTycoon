@@ -12,12 +12,20 @@ hud_manager_device := class(creative_device):
     @editable GoldPerKillMessage: hud_message_device = hud_message_device{}
     @editable MainMessage: hud_message_device = hud_message_device{}
     @editable VendingMachine1: vending_machine_device = vending_machine_device{}
+    @editable AttackMagicMessage: hud_message_device = hud_message_device{}
+    @editable HealMagicMessage: hud_message_device = hud_message_device{}
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
         VendingMachine1.ItemSpawnedEvent.Subscribe(OnPurchased1)
         ShowWelcomeMessage()
-    
+
+    ShowAttackMagicMessage(Agent: agent):void =
+        AttackMagicMessage.Show()
+
+    ShowHealMagicMessage(Agent: agent):void =
+        HealMagicMessage.Show()
+
     ShowWelcomeMessage()<suspends>:void =
         ShowMainMessage("Welcome!")
         Sleep(3.0)

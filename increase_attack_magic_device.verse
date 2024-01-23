@@ -28,6 +28,8 @@ increase_attack_magic_device := class(increase_ability_device):
     @editable ExplisiveLevel3 : explosive_device = explosive_device{}
     @editable MeteorMagic: meteor_magic_device = meteor_magic_device{}
     @editable Barrier: barrier_device = barrier_device{}
+    @editable Billboard: billboard_device = billboard_device{}
+    @editable HudManager: hud_manager_device = hud_manager_device{}
 
     MAX_ITEM_REQUIRED_COUNT: int = 1000000
 
@@ -51,6 +53,11 @@ increase_attack_magic_device := class(increase_ability_device):
         List := AttackEffectList()
         if (Effect := List[IncreasedCount - 1]):
             MeteorMagic.SetCurrentAttackEffect(Effect)
-
+        BillboardMessage := "Attack magic level up"
+        Billboard.SetText(StringToMessage(BillboardMessage))
+        HudManager.ShowAttackMagicMessage(Agent)
+    
+    StringToMessage<localizes>(value:string) : message = "{value}"
+    
 
         

@@ -14,6 +14,7 @@ increase_ability_device := class(creative_device):
     @editable ItemCountProvider: conditional_button_device = conditional_button_device{}
     @editable ItemGranter: item_granter_device = item_granter_device{}
     @editable PlayerSpawner:player_spawner_device = player_spawner_device{}
+    @editable MaxIncreaseCount: int = 3
     var BaseItemRequiredCount: int = 100
 
     # Runs when the device is started in a running game
@@ -40,9 +41,10 @@ increase_ability_device := class(creative_device):
 
     UpdateRequiredCountAfterSleep<private>(IncreasedCount: int)<suspends>:void =
         UnlockDevice.Disable()
-        Sleep(3.0)
-        UpdateRequiredCount(IncreasedCount)
-        UnlockDevice.Enable()
+        if (IncreasedCount < MaxIncreaseCount):
+            Sleep(3.0)
+            UpdateRequiredCount(IncreasedCount)
+            UnlockDevice.Enable()
     
     UpdateRequiredCount<private>(IncreasedCount: int):void =
         var NewCount:int = GetNewRequiredCount(IncreasedCount)
