@@ -22,7 +22,6 @@ prop_appear_device := class(creative_device):
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
-        HideProp()
         PlayerSpawner.SpawnedEvent.Subscribe(Initialize)
         Button.ActivatedEvent.Subscribe(OnActivated)
 
