@@ -27,6 +27,11 @@ boss_gate_device := class(creative_device):
     Initialize<private>(Agent: agent):void =
         ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
         if (ItemCount > 0):
-            Barrier.Disable()
-            UnlockDevice.Disable()
-            UnlockDevice.HideButton()
+            spawn{HideUnlockDeviceAfterSleep()}
+
+    HideUnlockDeviceAfterSleep<private>()<suspends>:void =
+        #ゲーム起動直後、 OnBeginの順番依存で、unlock_deviceのOnBeginのEnableが呼ばれるので2秒待つ
+        Sleep(2.0)
+        Barrier.Disable()
+        UnlockDevice.Disable()
+        UnlockDevice.HideButton()

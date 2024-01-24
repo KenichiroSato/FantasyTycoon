@@ -38,9 +38,14 @@ prop_appear_device := class(creative_device):
         if (FortChar := Agent.GetFortCharacter[]):
             ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
             if (ItemCount > 0):
-                UnlockDevice.Disable()
-                UnlockDevice.HideButton()
                 spawn{AppearProp(Agent)}
+                spawn{HideUnlockDeviceAfterSleep()}
+
+    HideUnlockDeviceAfterSleep<private>()<suspends>:void =
+        #ゲーム起動直後、 OnBeginの順番依存で、unlock_deviceのOnBeginのEnableが呼ばれるので2秒待つ
+        Sleep(2.0)
+        UnlockDevice.Disable()
+        UnlockDevice.HideButton()
 
     HideProp<private>()<suspends>:void =
         PropLocation := Prop.GetTransform().Translation
