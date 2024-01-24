@@ -20,7 +20,7 @@ scene:= enum{
     SavePoint,
     LastCrystal,
     Portal,
-    Defeat,
+    DefeatLassBoss,
     Jaeger,
     Fennix,
     Frontier,
@@ -42,7 +42,7 @@ lines_manager := class(creative_device):
     @editable FirstBossTrigger : mutator_zone_device = mutator_zone_device{}
     @editable SavePointTrigger: conditional_button_device = conditional_button_device{}
     @editable PortalTrigger: conditional_button_device = conditional_button_device{}
-    @editable DefeatTrigger : guard_spawner_device = guard_spawner_device{}
+    @editable DefeatLassBossTrigger : guard_spawner_device = guard_spawner_device{}
     @editable LanguageManager: language_manager = language_manager{}
 
     var MaybeMyUIPerPlayer : [player]?canvas = map{}
@@ -109,7 +109,7 @@ lines_manager := class(creative_device):
             scene.SavePoint     => return Provider.SavePointLinesList()
             scene.LastCrystal   => return Provider.LastCrystalLinesList()
             scene.Portal     => return Provider.PortalLinesList()
-            scene.Defeat     => return Provider.DefeatLinesList()
+            scene.DefeatLassBoss     => return Provider.DefeatLassBossLinesList()
             scene.Jaeger     => return Provider.JaegerList()
             scene.Fennix     => return Provider.FennixList()
             scene.Frontier   => return Provider.FrontierList()

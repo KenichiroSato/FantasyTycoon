@@ -15,7 +15,7 @@ lines_provider := interface():
     SavePointLinesList() : []line
     LastCrystalLinesList() : []line
     PortalLinesList() : []line
-    DefeatLinesList() : []line
+    DefeatLassBossLinesList() : []line
     JaegerList() : []line
     FennixList() : []line
     FrontierList() : []line
@@ -62,7 +62,7 @@ english_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s200, Duration := duration.Short}
     }
 
-    DefeatLinesList<override>() : []line = array{
+    DefeatLassBossLinesList<override>() : []line = array{
         line {Character := assets.Gia, Sentence := assets.s220, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s230, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s240, Duration := duration.Short},
@@ -127,7 +127,7 @@ japanese_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s200_ja, Duration := duration.Short}
     }
 
-    DefeatLinesList<override>() : []line = array{
+    DefeatLassBossLinesList<override>() : []line = array{
         line {Character := assets.Gia, Sentence := assets.s220_ja, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s230_ja, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s240_ja, Duration := duration.Short},
@@ -191,7 +191,7 @@ spanish_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s200_es, Duration := duration.Short}
     }
 
-    DefeatLinesList<override>() : []line = array{
+    DefeatLassBossLinesList<override>() : []line = array{
         line {Character := assets.Gia, Sentence := assets.s220_es, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s230_es, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s240_es, Duration := duration.Short},
@@ -255,7 +255,7 @@ french_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s200_fr, Duration := duration.Short}
     }
 
-    DefeatLinesList<override>() : []line = array{
+    DefeatLassBossLinesList<override>() : []line = array{
         line {Character := assets.Gia, Sentence := assets.s220_fr, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s230_fr, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s240_fr, Duration := duration.Short},

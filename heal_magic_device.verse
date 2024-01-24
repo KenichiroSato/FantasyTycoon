@@ -12,6 +12,8 @@ heal_magic_device := class(creative_device):
     @editable SignalRemote:signal_remote_manager_device = signal_remote_manager_device{}
     @editable Vfx: vfx_follow_player_device = vfx_follow_player_device{}
     @editable HealDevice: health_powerup_device = health_powerup_device{}
+    @editable HealSoundPlayer: audio_player_device = audio_player_device{}
+
     var HealAmount: float = 100.0
 
     # Runs when the device is started in a running game
@@ -28,4 +30,5 @@ heal_magic_device := class(creative_device):
     Heal(Agent : agent) :void =
         if (FortniteCharacter : fort_character = Agent.GetFortCharacter[]):
             Print("Heal")
+            HealSoundPlayer.Play()
             HealDevice.Pickup(Agent)

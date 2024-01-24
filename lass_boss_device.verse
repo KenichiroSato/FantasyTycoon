@@ -18,6 +18,7 @@ lass_boss_device := class(creative_device):
     @editable Indicator: map_indicator_device = map_indicator_device{}
     @editable BgmManager: bgm_manager = bgm_manager{}
     @editable Accolade: accolades_device = accolades_device{}
+    @editable LinesManager: lines_manager = lines_manager{}
 
     var GateInitialPosition<private>: vector3 = vector3{X:=0.0, Y:= 0.0, Z:=0.0}
 
@@ -62,6 +63,7 @@ lass_boss_device := class(creative_device):
             Print("OnBossEliminated")
             set EliminatedCount += 1
             if (EliminatedCount = BossNumber + GuardNumber):
+                LinesManager.StartScene(Agent, scene.DefeatLassBoss)
                 spawn{ShowGate()}
                 Indicator.Enable()
                 Indicator.ActivateObjectivePulse(Agent)
