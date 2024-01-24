@@ -10,7 +10,6 @@ using { /UnrealEngine.com/Temporary/SpatialMath }
 # A Verse-authored creative device that can be placed in a level
 vfx_follow_player_device := class(creative_device):
 
-    @editable var Prop : creative_prop = creative_prop{}
     @editable GoldButton: conditional_button_device = conditional_button_device{}
     @editable SaveButton: conditional_button_device = conditional_button_device{}
     @editable HpButton: conditional_button_device = conditional_button_device{}
@@ -53,24 +52,8 @@ vfx_follow_player_device := class(creative_device):
 
 
     StartVfx<private>(Agent: agent, Vfx: vfx_spawner_device)<suspends>:void =
-        SetProp(Agent)
         Vfx.Enable()
         Print("EnableVFX")
-        FollowPlayer(Agent)
+        Sleep(2.0)
         Print("DisableVFX")
         Vfx.Disable()
-
-
-    SetProp<private>(Agent: agent)<suspends>:void =
-        if (FortChar := Agent.GetFortCharacter[]):
-            CharLocation := FortChar.GetTransform().Translation
-            CharRotation := FortChar.GetTransform().Rotation
-            if (Prop.TeleportTo[CharLocation, CharRotation]):
-                Print("SetProp")
-
-    FollowPlayer(Agent : agent)<suspends>:void=
-        if (FortChar := Agent.GetFortCharacter[]):
-            CharRotation := FortChar.GetTransform().Rotation
-            for(Index : int = 0..20 ):
-                CharLocation := FortChar.GetTransform().Translation
-                Prop.MoveTo(CharLocation, CharRotation, 0.1)
