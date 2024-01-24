@@ -56,7 +56,7 @@ prop_appear_device := class(creative_device):
         Print("Appear Prop")
         PropLocation := Prop.GetTransform().Translation
         NewLocation := vector3{X := PropLocation.X, Y := PropLocation.Y, Z := PropLocation.Z + MoveDistance}
-        Prop.MoveTo(NewLocation, Prop.GetTransform().Rotation, 1.0)
+        Prop.MoveTo(NewLocation, Prop.GetTransform().Rotation, 0.5)
         EnableDevices(Agent)
     
     EnableDevices<private>(Agent: agent):void =

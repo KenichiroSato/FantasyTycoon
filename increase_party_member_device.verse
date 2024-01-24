@@ -36,13 +36,13 @@ increase_party_member_device := class(increase_ability_device):
         if (IncreasedCount=1):
             return 50
         if (IncreasedCount=2):
-            return 200
+            return 300
         if (IncreasedCount=3):
-            return 1000
+            return 2000
         if (IncreasedCount=4):
-            return 5000
+            return 10000
         if (IncreasedCount=5):
-            return 20000
+            return 100000
         else:
             return 100000
 

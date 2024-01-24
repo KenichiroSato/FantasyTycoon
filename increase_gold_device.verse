@@ -45,25 +45,25 @@ increase_gold_device := class(increase_ability_device):
 
     GetNewRequiredCount<override>(IncreasedCount: int):int =
         if (IncreasedCount=1):
-            return 50
-        if (IncreasedCount=2):
             return 200
-        if (IncreasedCount=3):
+        if (IncreasedCount=2):
             return 1000
-        if (IncreasedCount=4):
+        if (IncreasedCount=3):
             return 5000
-        if (IncreasedCount=5):
+        if (IncreasedCount=4):
             return 10000
-        if (IncreasedCount=6):
+        if (IncreasedCount=5):
             return 20000
+        if (IncreasedCount=6):
+            return 50000
         if (IncreasedCount=7):
-            return 40000
-        if (IncreasedCount=8):
             return 100000
-        if (IncreasedCount=9):
+        if (IncreasedCount=8):
             return 200000
+        if (IncreasedCount=9):
+            return 500000
         else:
-            return 400000
+            return 500000
 
     UpdateAbility<override>(Agent: agent,  IncreasedCount: int):void =
         GoldPerKills := GoldPerKillList()
