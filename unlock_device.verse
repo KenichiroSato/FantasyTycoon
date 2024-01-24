@@ -4,7 +4,9 @@ using { /Verse.org/Simulation }
 using { /UnrealEngine.com/Temporary/Diagnostics }
 using { /UnrealEngine.com/Temporary/SpatialMath }
 
-# See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
+unlock_consultant := interface():
+    shouldEnableDevice(Agent: agent) : logic
+
 
 # A Verse-authored creative device that can be placed in a level
 unlock_device := class(creative_device):
@@ -15,13 +17,13 @@ unlock_device := class(creative_device):
     @editable GameManager: game_manager_device = game_manager_device{}
     @editable AudioPlayer: audio_player_device = audio_player_device{}
     @editable KeepEnableAfterUse: logic = false
-    @editable ItemCountProvider: conditional_button_device = conditional_button_device{}
 
     # list of unlock_device that must be activated before this device is enabled.
     @editable DependsDevices: []unlock_device = array{}
     @editable DisableTargets: []unlock_device = array{}
 
     var DependDeviceActivatedCount:int = 0
+    var <private>UnlockConsultant: ?unlock_consultant = false
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
@@ -31,6 +33,9 @@ unlock_device := class(creative_device):
             Enable()
         Button.ActivatedEvent.Subscribe(OnActivated)
         SubscribeDependButtonActivation()
+
+    SetUnlockConsultant(Consultant: unlock_consultant):void =
+        set UnlockConsultant = option{Consultant}
 
     SubscribeDependButtonActivation<private>():void =
         if (DependsDevices.Length > 0):
@@ -79,7 +84,13 @@ unlock_device := class(creative_device):
 
 
     EnableIfNeed(Agent: agent):void =
-        ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
-        if (ItemCount > 0):
-            return # already activated and no need to enable
-        Enable()
+        Flag := ShouldEnable(Agent)
+        if (Flag = true):
+            Enable()
+
+    ShouldEnable(Agent: agent):logic =
+        if (Consultant := UnlockConsultant?):
+            return Consultant.shouldEnableDevice(Agent)
+        else :
+            return true
+

@@ -7,7 +7,7 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 # See https://dev.epicgames.com/documentation/en-us/uefn/create-your-own-device-in-verse for how to create a verse device.
 
 # A Verse-authored creative device that can be placed in a level
-increase_ability_device := class(creative_device):
+increase_ability_device := class(creative_device, unlock_consultant):
 
     @editable Button: conditional_button_device = conditional_button_device{}
     @editable UnlockDevice: unlock_device = unlock_device{}
@@ -22,6 +22,7 @@ increase_ability_device := class(creative_device):
         PlayerSpawner.SpawnedEvent.Subscribe(Initialize)
         Button.ActivatedEvent.Subscribe(OnActivated)
         set BaseItemRequiredCount = Button.GetItemCountRequired(0)
+        UnlockDevice.SetUnlockConsultant(Self)
 
     OnActivated(Agent: agent):void =
         if (FortChar := Agent.GetFortCharacter[]):
@@ -57,3 +58,10 @@ increase_ability_device := class(creative_device):
 
     UpdateAbility(Agent: agent,  IncreasedCount: int):void = {}
         #should be overriden in subclass
+
+    shouldEnableDevice<override>(Agent: agent):logic =
+        ItemCount := ItemCountProvider.GetItemCount(Agent, 0)
+        if (ItemCount < MaxIncreaseCount):
+            return true
+        else :
+            return false
