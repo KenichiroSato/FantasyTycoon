@@ -19,6 +19,7 @@ lass_boss_device := class(creative_device):
     @editable BgmManager: bgm_manager = bgm_manager{}
     @editable Accolade: accolades_device = accolades_device{}
     @editable LinesManager: lines_manager = lines_manager{}
+    @editable ShowcaseManager: showcase_manager = showcase_manager{}
 
     var GateInitialPosition<private>: vector3 = vector3{X:=0.0, Y:= 0.0, Z:=0.0}
 
@@ -69,6 +70,7 @@ lass_boss_device := class(creative_device):
                 Indicator.ActivateObjectivePulse(Agent)
                 spawn{BgmManager.PlayMonsterDefeated()}
                 Accolade.Award(Agent)
+                spawn{ShowcaseManager.DisplayShowcase(Agent)}
 
     ShowGate<private>()<suspends>:void =
         NewLocation := vector3{X := GateInitialPosition.X, Y := GateInitialPosition.Y, Z := GateInitialPosition.Z + 1000.0}
