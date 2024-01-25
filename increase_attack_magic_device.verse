@@ -55,7 +55,7 @@ increase_attack_magic_device := class(increase_ability_device):
             MeteorMagic.SetCurrentAttackEffect(Effect)
         BillboardMessage := "Attack magic level up"
         Billboard.SetText(StringToMessage(BillboardMessage))
-        HudManager.ShowAttackMagicMessage(Agent)
+        HudManager.UpdateAttackMagicLevel(IncreasedCount)
     
     StringToMessage<localizes>(value:string) : message = "{value}"
     

@@ -20,9 +20,7 @@ game_manager_device := class(creative_device):
     @editable var CurrentGranter: item_granter_device = item_granter_device{}
 
     @editable BgmManager: bgm_manager = bgm_manager{}
-    @editable AccoladeBoss: accolades_device = accolades_device{}
-    @editable AccoladeLasBoss: accolades_device = accolades_device{}
-    
+        
     var CurrentAgent: ?agent = false
     var GoldPerKill:int = 1
     var CurrentGold:int = 0
@@ -96,23 +94,4 @@ game_manager_device := class(creative_device):
 
     ShowGold<private>():void =
         HudManager.ShowGold(CurrentGold)
-
-    OnMonsterEmerged(IsLassBoss: logic):void =
-        HudManager.ShowMonsterEmergedMessage()
-        if (IsLassBoss = true):
-            BgmManager.PlayLassBossBgm()
-        else:
-            BgmManager.PlayBattleBgm()
-
-    OnMonsterDefeated(IsLassBoss: logic):void =
-        HudManager.ShowMonsterDefeatedMessage()
-        BgmManager.OnMonsterDefeated()
-        AccoladeAgent(IsLassBoss)
-    
-    AccoladeAgent(IsLassBoss: logic):void =
-        if(Agent := CurrentAgent?):
-            if (IsLassBoss = true):
-                AccoladeLasBoss.Award(Agent)
-            else:
-                AccoladeBoss.Award(Agent)
         

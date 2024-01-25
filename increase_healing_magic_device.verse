@@ -30,6 +30,6 @@ increase_healing_magic_device := class(increase_ability_device):
         HealMagicDevice.SetHealAmount(New)
         BillboardMessage := "Healing magic level up"
         Billboard.SetText(StringToMessage(BillboardMessage))
-        HudManager.ShowHealMagicMessage(Agent)
+        HudManager.UpdateHealingMagicLevel(IncreasedCount)
 
     StringToMessage<localizes>(value:string) : message = "{value}"

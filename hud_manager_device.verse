@@ -10,30 +10,39 @@ hud_manager_device := class(creative_device):
 
     @editable GoldMessage: hud_message_device = hud_message_device{}
     @editable GoldPerKillMessage: hud_message_device = hud_message_device{}
-    @editable MainMessage: hud_message_device = hud_message_device{}
-    @editable VendingMachine1: vending_machine_device = vending_machine_device{}
+    @editable MainUIA0H0: hud_message_device = hud_message_device{}
+    @editable MainUIA0H1: hud_message_device = hud_message_device{}
+    @editable MainUIA0H2: hud_message_device = hud_message_device{}
+    @editable MainUIA0H3: hud_message_device = hud_message_device{}
+    @editable MainUIA1H0: hud_message_device = hud_message_device{}
+    @editable MainUIA1H1: hud_message_device = hud_message_device{}
+    @editable MainUIA1H2: hud_message_device = hud_message_device{}
+    @editable MainUIA1H3: hud_message_device = hud_message_device{}
+    @editable MainUIA2H0: hud_message_device = hud_message_device{}
+    @editable MainUIA2H1: hud_message_device = hud_message_device{}
+    @editable MainUIA2H2: hud_message_device = hud_message_device{}
+    @editable MainUIA2H3: hud_message_device = hud_message_device{}
+    @editable MainUIA3H0: hud_message_device = hud_message_device{}
+    @editable MainUIA3H1: hud_message_device = hud_message_device{}
+    @editable MainUIA3H2: hud_message_device = hud_message_device{}
+    @editable MainUIA3H3: hud_message_device = hud_message_device{}
     @editable AttackMagicMessage: hud_message_device = hud_message_device{}
     @editable HealMagicMessage: hud_message_device = hud_message_device{}
 
+    var CurrentAttackMagicLevel<private> :int = 0
+    var CurrentHealingMagicLevel<private> :int = 0
+    var IsMainUiInitialized:logic = false
+
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
-        VendingMachine1.ItemSpawnedEvent.Subscribe(OnPurchased1)
-        ShowWelcomeMessage()
+        if (IsMainUiInitialized = false):
+            ShowMainUI()
 
     ShowAttackMagicMessage(Agent: agent):void =
         AttackMagicMessage.Show()
 
     ShowHealMagicMessage(Agent: agent):void =
         HealMagicMessage.Show()
-
-    ShowWelcomeMessage()<suspends>:void =
-        ShowMainMessage("Welcome!")
-        Sleep(3.0)
-        ShowMainMessage("Buy weapon with Gold!")
-
-
-    OnPurchased1(Agent: agent):void =
-        ShowMainMessage("Shoot monsters to earn Golds!!")
     
     ShowGold(GoldCount: int):void =
         GoldMessage.Hide()
@@ -45,20 +54,67 @@ hud_manager_device := class(creative_device):
         GoldPerKillMessage.SetText(StringToMessage("{GoldPerKill}"))
         GoldPerKillMessage.Show()
 
-    ShowMainMessage(Message: string) : void =
-        MainMessage.Hide()
-        MainMessage.Show(StringToMessage(Message))
-
     StringToMessage<localizes>(value:string) : message = "{value}"
 
-    ShowMonsterEmergedMessage():void =
-        spawn{MonsterEmergedMessage()}
+    UpdateAttackMagicLevel(Level: int):void =
+        set CurrentAttackMagicLevel = Level
+        ShowMainUI()
 
-    MonsterEmergedMessage<private>()<suspends>:void =
-        ShowMainMessage("Giant monster has appeared!")
-        Sleep(4.0)
-        ShowMainMessage("Build a mega turret gun and defeat it!")
+    UpdateHealingMagicLevel(Level: int):void =
+        set CurrentHealingMagicLevel = Level
+        ShowMainUI()
 
-    ShowMonsterDefeatedMessage():void =
-        ShowMainMessage("You made it!!")
-        
+    HideMainUI<private>():void =
+        MainUIA0H0.Hide()
+        MainUIA0H1.Hide()
+        MainUIA0H2.Hide()
+        MainUIA0H3.Hide()
+        MainUIA1H0.Hide()
+        MainUIA1H1.Hide()
+        MainUIA1H2.Hide()
+        MainUIA1H3.Hide()
+        MainUIA2H0.Hide()
+        MainUIA2H1.Hide()
+        MainUIA2H2.Hide()
+        MainUIA2H3.Hide()
+        MainUIA3H0.Hide()
+        MainUIA3H1.Hide()
+        MainUIA3H2.Hide()
+        MainUIA3H3.Hide()
+    
+    ShowMainUI<private>():void =
+        HideMainUI()
+        set IsMainUiInitialized = true
+        Print("MainUI Attack={CurrentAttackMagicLevel} Healing={CurrentHealingMagicLevel}")
+        if (     CurrentAttackMagicLevel =0 and CurrentHealingMagicLevel  = 1):
+            MainUIA0H1.Show()
+        else if (CurrentAttackMagicLevel =0 and CurrentHealingMagicLevel  = 2):
+            MainUIA0H2.Show()
+        else if (CurrentAttackMagicLevel =0 and CurrentHealingMagicLevel  = 3):
+            MainUIA0H3.Show()
+        else if (CurrentAttackMagicLevel =1 and CurrentHealingMagicLevel  = 0):
+            MainUIA1H0.Show()
+        else if (CurrentAttackMagicLevel =1 and CurrentHealingMagicLevel  = 1):
+            MainUIA1H1.Show()
+        else if (CurrentAttackMagicLevel =1 and CurrentHealingMagicLevel  = 2):
+            MainUIA1H2.Show()
+        else if (CurrentAttackMagicLevel =1 and CurrentHealingMagicLevel  = 3):
+            MainUIA1H3.Show()
+        else if (CurrentAttackMagicLevel =2 and CurrentHealingMagicLevel  = 0):
+            MainUIA2H0.Show()
+        else if (CurrentAttackMagicLevel =2 and CurrentHealingMagicLevel  = 1):
+            MainUIA2H1.Show()
+        else if (CurrentAttackMagicLevel =2 and CurrentHealingMagicLevel  = 2):
+            MainUIA2H2.Show()
+        else if (CurrentAttackMagicLevel =2 and CurrentHealingMagicLevel  = 3):
+            MainUIA2H3.Show()
+        else if (CurrentAttackMagicLevel =3 and CurrentHealingMagicLevel  = 0):
+            MainUIA3H0.Show()
+        else if (CurrentAttackMagicLevel =3 and CurrentHealingMagicLevel  = 1):
+            MainUIA3H1.Show()
+        else if (CurrentAttackMagicLevel =3 and CurrentHealingMagicLevel  = 2):
+            MainUIA3H2.Show()
+        else if (CurrentAttackMagicLevel =3 and CurrentHealingMagicLevel  = 3):
+            MainUIA3H3.Show()
+        else:
+            MainUIA0H0.Show()
