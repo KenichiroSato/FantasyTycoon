@@ -10,6 +10,7 @@ using { /UnrealEngine.com/Temporary/Diagnostics }
 increase_damage_device := class(increase_ability_device):
 
     @editable DamageAmplifier:damage_amplifier_powerup_device = damage_amplifier_powerup_device{}
+    @editable Billboard: billboard_device = billboard_device{}
     @editable BaseAmount: float = 0.1
     MAX_ITEM_REQUIRED_COUNT: int = 1000000
 
@@ -25,3 +26,13 @@ increase_damage_device := class(increase_ability_device):
         AmpValue := BaseAmount * IncreasedCount * 5.0
         DamageAmplifier.SetMagnitude(AmpValue)
         Print("New AmpValue = {AmpValue}")
+        NewText:= GetNewText(IncreasedCount)
+        Billboard.SetText(StringToMessage(NewText))
+
+    GetNewText<private>(IncreasedCount: int):string =
+        if (NewRate := Int[(IncreasedCount + 1)*5.0]):
+            return "attack power ×{NewRate}"
+        else:
+            return "Increase attack power"
+
+    StringToMessage<localizes>(value:string) : message = "{value}"

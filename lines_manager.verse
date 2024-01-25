@@ -17,6 +17,8 @@ scene:= enum{
     Introduction3,
     FirstBoss,
     FirstCrystal,
+    SecondCrystal,
+    ThirdCrystal,
     SavePoint,
     LastCrystal,
     Portal,
@@ -38,11 +40,12 @@ line := struct:
 lines_manager := class(creative_device):
 
     @editable FirstCrystalTrigger : item_spawner_device = item_spawner_device{}
+    @editable SecondCrystalTrigger : item_spawner_device = item_spawner_device{}
+    @editable ThirdCrystalTrigger : item_spawner_device = item_spawner_device{}
     @editable LastCrystalTrigger : item_spawner_device = item_spawner_device{}
     @editable FirstBossTrigger : mutator_zone_device = mutator_zone_device{}
     @editable SavePointTrigger: conditional_button_device = conditional_button_device{}
     @editable PortalTrigger: conditional_button_device = conditional_button_device{}
-    @editable DefeatLassBossTrigger : guard_spawner_device = guard_spawner_device{}
     @editable LanguageManager: language_manager = language_manager{}
 
     var MaybeMyUIPerPlayer : [player]?canvas = map{}
@@ -54,6 +57,8 @@ lines_manager := class(creative_device):
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
         FirstCrystalTrigger.ItemPickedUpEvent.Subscribe(OnFirstCrystal)
+        SecondCrystalTrigger.ItemPickedUpEvent.Subscribe(OnSecondCrystal)
+        ThirdCrystalTrigger.ItemPickedUpEvent.Subscribe(OnThirdCrystal)
         LastCrystalTrigger.ItemPickedUpEvent.Subscribe(OnLastCrystal)
         FirstBossTrigger.AgentEntersEvent.Subscribe(OnFisrstBoss)
         SavePointTrigger.ActivatedEvent.Subscribe(OnSavePoint)
@@ -82,6 +87,12 @@ lines_manager := class(creative_device):
     OnFirstCrystal(Agent: agent):void =
         StartScene(Agent, scene.FirstCrystal)
 
+    OnSecondCrystal(Agent: agent):void =
+        StartScene(Agent, scene.SecondCrystal)
+
+    OnThirdCrystal(Agent: agent):void =
+        StartScene(Agent, scene.ThirdCrystal)
+
     OnFisrstBoss(Agent: agent):void =
         StartScene(Agent, scene.FirstBoss)
 
@@ -106,6 +117,8 @@ lines_manager := class(creative_device):
             scene.Introduction3 => return Provider.Introduction3LinesList()
             scene.FirstBoss     => return Provider.FirstBossLinesList()
             scene.FirstCrystal  => return Provider.FirstCrystalLinesList()
+            scene.SecondCrystal  => return Provider.SecondCrystalLinesList()
+            scene.ThirdCrystal  => return Provider.ThirdCrystalLinesList()
             scene.SavePoint     => return Provider.SavePointLinesList()
             scene.LastCrystal   => return Provider.LastCrystalLinesList()
             scene.Portal     => return Provider.PortalLinesList()

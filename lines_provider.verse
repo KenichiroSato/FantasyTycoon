@@ -12,6 +12,8 @@ lines_provider := interface():
     Introduction3LinesList() : []line
     FirstBossLinesList() : []line
     FirstCrystalLinesList() : []line
+    SecondCrystalLinesList() : []line
+    ThirdCrystalLinesList() : []line
     SavePointLinesList() : []line
     LastCrystalLinesList() : []line
     PortalLinesList() : []line
@@ -46,6 +48,17 @@ english_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s100, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s110, Duration := duration.Long}
     }
+    
+    SecondCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s300, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s310, Duration := duration.Short}
+    }
+
+    ThirdCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s320, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s330, Duration := duration.Short}
+    }
+
 
     SavePointLinesList<override>() : []line = array{
         line {Character := assets.Gia, Sentence := assets.s130, Duration := duration.Short},
@@ -112,6 +125,17 @@ japanese_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s110_ja, Duration := duration.Short}
     }
 
+    SecondCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s300_ja, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s310_ja, Duration := duration.Short}
+    }
+
+    ThirdCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s320_ja, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s330_ja, Duration := duration.Short}
+    }
+
+
     SavePointLinesList<override>() : []line = array{
         line {Character := assets.Gia, Sentence := assets.s130_ja, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s140_ja, Duration := duration.Short}
@@ -176,6 +200,16 @@ spanish_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s110_es, Duration := duration.Long}
     }
 
+    SecondCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s300_es, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s310_es, Duration := duration.Short}
+    }
+
+    ThirdCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s320_es, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s330_es, Duration := duration.Short}
+    }
+
     SavePointLinesList<override>() : []line = array{
         line {Character := assets.Gia, Sentence := assets.s130_es, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s140_es, Duration := duration.Short}
@@ -233,6 +267,16 @@ french_lines_provider := class(lines_provider):
         line {Character := assets.Gia, Sentence := assets.s60_fr, Duration := duration.Short},
         line {Character := assets.Gia, Sentence := assets.s70_fr, Duration := duration.Long},
         line {Character := assets.Gia, Sentence := assets.s80_fr, Duration := duration.Short}
+    }
+
+    SecondCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s300_fr, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s310_fr, Duration := duration.Short}
+    }
+
+    ThirdCrystalLinesList<override>() : []line = array{
+        line {Character := assets.Gia, Sentence := assets.s320_fr, Duration := duration.Short},
+        line {Character := assets.Gia, Sentence := assets.s330_fr, Duration := duration.Short}
     }
 
     FirstCrystalLinesList<override>() : []line = array{
