@@ -26,24 +26,23 @@ hud_manager_device := class(creative_device):
     @editable MainUIA3H1: hud_message_device = hud_message_device{}
     @editable MainUIA3H2: hud_message_device = hud_message_device{}
     @editable MainUIA3H3: hud_message_device = hud_message_device{}
-    @editable AttackMagicMessage: hud_message_device = hud_message_device{}
-    @editable HealMagicMessage: hud_message_device = hud_message_device{}
+    @editable AttacPowerImage: hud_message_device = hud_message_device{}
+    @editable AttacPowerValue: hud_message_device = hud_message_device{}
 
     var CurrentAttackMagicLevel<private> :int = 0
     var CurrentHealingMagicLevel<private> :int = 0
+    var CurrentAttackPower<private>:int = 1
     var IsMainUiInitialized:logic = false
+    var IsAttackPowerUiInitialized:logic = false
 
     # Runs when the device is started in a running game
     OnBegin<override>()<suspends>:void=
+        AttacPowerImage.Show()
+        if (IsAttackPowerUiInitialized = false):
+            ShowAttackPowerUI()
         if (IsMainUiInitialized = false):
             ShowMainUI()
 
-    ShowAttackMagicMessage(Agent: agent):void =
-        AttackMagicMessage.Show()
-
-    ShowHealMagicMessage(Agent: agent):void =
-        HealMagicMessage.Show()
-    
     ShowGold(GoldCount: int):void =
         GoldMessage.Hide()
         GoldMessage.SetText(StringToMessage("{GoldCount}"))
@@ -63,6 +62,15 @@ hud_manager_device := class(creative_device):
     UpdateHealingMagicLevel(Level: int):void =
         set CurrentHealingMagicLevel = Level
         ShowMainUI()
+
+    UpdateAttackPower(Value: int):void =
+        set CurrentAttackPower = Value
+        ShowAttackPowerUI()
+
+    ShowAttackPowerUI():void =
+        set IsAttackPowerUiInitialized = true
+        AttacPowerValue.Hide()
+        AttacPowerValue.SetText(StringToMessage("Attack power × {CurrentAttackPower}"))
 
     HideMainUI<private>():void =
         MainUIA0H0.Hide()
