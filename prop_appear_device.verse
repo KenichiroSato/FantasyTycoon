@@ -16,6 +16,7 @@ prop_appear_device := class(creative_device):
     @editable PlayerSpawner:player_spawner_device = player_spawner_device{}
     @editable Prop: creative_prop = creative_prop{}
     @editable EnableDevicesAfterAppear: []unlock_device = array{}
+    @editable PropManipulator: prop_manipulator_device = prop_manipulator_device{}
     @editable Duration:float = 0.5
 
     @editable MoveDistance: float = 3000.0
@@ -55,9 +56,11 @@ prop_appear_device := class(creative_device):
 
     AppearProp<private>(Agent: agent)<suspends>:void =
         Print("Appear Prop")
-        PropLocation := Prop.GetTransform().Translation
-        NewLocation := vector3{X := PropLocation.X, Y := PropLocation.Y, Z := PropLocation.Z + MoveDistance}
-        Prop.MoveTo(NewLocation, Prop.GetTransform().Rotation, Duration)
+        PropManipulator.ShowProps()
+        if (Duration > 0.0):
+            PropLocation := Prop.GetTransform().Translation
+            NewLocation := vector3{X := PropLocation.X, Y := PropLocation.Y, Z := PropLocation.Z + MoveDistance}
+            Prop.MoveTo(NewLocation, Prop.GetTransform().Rotation, Duration)
         EnableDevices(Agent)
     
     EnableDevices<private>(Agent: agent):void =
